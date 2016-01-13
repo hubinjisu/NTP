@@ -1,6 +1,7 @@
 package com.android.hubin.ntp.manager;
 
-import android.os.SystemClock;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class NtpManager
 {
     private static String TAG = "NtpManager";
+    public static String ACTION_NTP_NOTIFY = "ACTION_NTP_NOTIFY";
+    public static String DATA_INTENT = "DATA_INTENT";
 
     private static NtpManager instance;
 
@@ -31,17 +34,20 @@ public class NtpManager
 
     private ScheduledExecutorService pool = null;
 
-    public static NtpManager getInstance()
+    private Context context;
+
+    public static NtpManager getInstance(Context context)
     {
         if (instance == null)
         {
-            instance = new NtpManager();
+            instance = new NtpManager(context);
         }
         return instance;
     }
 
-    private NtpManager()
+    private NtpManager(Context context)
     {
+        this.context = context;
         zoneMap.add(-12 * 60);
         zoneMap.add(-11 * 60);
         zoneMap.add(-10 * 60);
@@ -125,7 +131,11 @@ public class NtpManager
 
             long updateTime = System.currentTimeMillis() + (long) (localClockOffset * 1000l);
 
-            SystemClock.setCurrentTimeMillis(updateTime);
+            Intent data = new Intent(ACTION_NTP_NOTIFY);
+            data.putExtra(DATA_INTENT, updateTime);
+            context.sendBroadcast(data);
+//            SystemClock.setCurrentTimeMillis(updateTime);
+
         }
         catch (Exception e)
         {
