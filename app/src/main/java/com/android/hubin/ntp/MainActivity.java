@@ -20,6 +20,9 @@ import android.widget.TextView;
 
 import com.android.hubin.ntp.manager.NtpManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity
 {
     private static final String TAG = "MainActivity";
@@ -70,15 +73,27 @@ public class MainActivity extends AppCompatActivity
             {
                 String intentAction = intent.getAction();
                 Log.i(TAG, "intentAction: " + intentAction);
-
                 if (intentAction.equals(NtpManager.ACTION_NTP_NOTIFY))
                 {
-                    int ntpTime = intent.getIntExtra(NtpManager.DATA_INTENT, 0);
+                    long ntpTime = intent.getLongExtra(NtpManager.DATA_INTENT, 0);
+                    ntpTimeTV.setText(formatTime(ntpTime));
                     Log.i(TAG, "ntpTime: " + ntpTime);
                 }
             }
         };
         registerReceiver(receiver, new IntentFilter(NtpManager.ACTION_NTP_NOTIFY));
+    }
+
+    private String formatTime(long time)
+    {
+        if (time == 0)
+        {
+            return "0";
+        }
+        Date date = new Date(time);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
+        String dateFormat = format.format(date);
+        return dateFormat;
     }
 
     @Override

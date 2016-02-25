@@ -17,10 +17,9 @@ import java.util.concurrent.TimeUnit;
 
 public class NtpManager
 {
-    private static String TAG = "NtpManager";
     public static String ACTION_NTP_NOTIFY = "ACTION_NTP_NOTIFY";
     public static String DATA_INTENT = "DATA_INTENT";
-
+    private static String TAG = "NtpManager";
     private static NtpManager instance;
 
     private String serverAddress = "";
@@ -36,15 +35,6 @@ public class NtpManager
 
     private Context context;
 
-    public static NtpManager getInstance(Context context)
-    {
-        if (instance == null)
-        {
-            instance = new NtpManager(context);
-        }
-        return instance;
-    }
-
     private NtpManager(Context context)
     {
         this.context = context;
@@ -56,9 +46,9 @@ public class NtpManager
         zoneMap.add(-7 * 60);
         zoneMap.add(-6 * 60);
         zoneMap.add(-5 * 60);
-        zoneMap.add((int) (-(4+30/60.0)*60));
+        zoneMap.add((int) (-(4 + 30 / 60.0) * 60));
         zoneMap.add(-4 * 60);
-        zoneMap.add((int) (-(3+30/60.0)*60));
+        zoneMap.add((int) (-(3 + 30 / 60.0) * 60));
         zoneMap.add(-3 * 60);
         zoneMap.add(-2 * 60);
         zoneMap.add(-1 * 60);
@@ -66,53 +56,58 @@ public class NtpManager
         zoneMap.add(1 * 60);
         zoneMap.add(2 * 60);
         zoneMap.add(3 * 60);
-        zoneMap.add((int) (3+30/60.0)*60);
+        zoneMap.add((int) (3 + 30 / 60.0) * 60);
         zoneMap.add(4 * 60);
-        zoneMap.add((int) ((4+30/60.0)*60));
+        zoneMap.add((int) ((4 + 30 / 60.0) * 60));
         zoneMap.add(5 * 60);
-        zoneMap.add((int) ((5+30/60.0)*60));
-        zoneMap.add((int) ((5+45/60.0)*60));
+        zoneMap.add((int) ((5 + 30 / 60.0) * 60));
+        zoneMap.add((int) ((5 + 45 / 60.0) * 60));
         zoneMap.add(6 * 60);
-        zoneMap.add((int) ((6+30/60.0)*60));
+        zoneMap.add((int) ((6 + 30 / 60.0) * 60));
         zoneMap.add(7 * 60);
         zoneMap.add(8 * 60);
         zoneMap.add(9 * 60);
-        zoneMap.add((int) ((9+30/60.0)*60));
+        zoneMap.add((int) ((9 + 30 / 60.0) * 60));
         zoneMap.add(10 * 60);
         zoneMap.add(11 * 60);
         zoneMap.add(12 * 60);
         zoneMap.add(13 * 60);
     }
 
+    public static NtpManager getInstance(Context context)
+    {
+        if (instance == null)
+        {
+            instance = new NtpManager(context);
+        }
+        return instance;
+    }
 
     public void startNtpService(String serverAddress, int serverPort, int localPort, int zoneSize, int interval)
     {
         Log.i(TAG, "startNtpService::serverAddress:" + serverAddress + " serverPort:" + serverPort + " zoneSize:" + zoneSize + " interval:" + interval);
-        if (!this.serverAddress.equals(serverAddress) || this.serverPort != serverPort || this.localPort != localPort || this.zoneSize != zoneSize || this.interval != interval)
+        this.zoneSize = zoneSize;
+        zone = zoneMap.get(zoneSize);
+        this.interval = interval;
+        this.serverAddress = serverAddress;
+        this.serverPort = serverPort;
+        this.interval = interval;
+        this.localPort = localPort;
+
+        if (pool != null)
         {
-            this.zoneSize = zoneSize;
-            zone = zoneMap.get(zoneSize);
-            this.interval = interval;
-            this.serverAddress = serverAddress;
-            this.serverPort = serverPort;
-            this.interval = interval;
-            this.localPort = localPort;
-
-            if (pool != null)
-            {
-                pool.shutdownNow();
-            }
-
-            pool = new ScheduledThreadPoolExecutor(1);
-            pool.scheduleWithFixedDelay(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    updateTime();
-                }
-            }, 0, interval, TimeUnit.MINUTES);
+            pool.shutdownNow();
         }
+
+        pool = new ScheduledThreadPoolExecutor(1);
+        pool.scheduleWithFixedDelay(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                updateTime();
+            }
+        }, 0, interval, TimeUnit.MINUTES);
     }
 
     private void updateTime()
@@ -126,26 +121,17 @@ public class NtpManager
         {
             double destinationTimestamp = (System.currentTimeMillis() / 1000.0) + 2208988800.0;
             destinationTimestamp = destinationTimestamp + getOffsetOfTimezone() * 60 * 60 - zone * 60;
-
             double localClockOffset = ((msg.receiveTimestamp - msg.originateTimestamp) + (msg.transmitTimestamp - destinationTimestamp)) / 2;
-
             long updateTime = System.currentTimeMillis() + (long) (localClockOffset * 1000l);
-
             Intent data = new Intent(ACTION_NTP_NOTIFY);
             data.putExtra(DATA_INTENT, updateTime);
             context.sendBroadcast(data);
 //            SystemClock.setCurrentTimeMillis(updateTime);
-
         }
         catch (Exception e)
         {
             Log.e(TAG, e.toString());
         }
-    }
-
-    public static int getOffsetOfTimezone()
-    {
-        return TimeZone.getDefault().getRawOffset() / 3600 / 1000;
     }
 
     private NtpMessage getNtpMessage()
@@ -154,7 +140,6 @@ public class NtpManager
         int timeout = 3000;
 
         // get the address and NTP address request
-        //
         InetAddress ipv4Addr = null;
         DatagramSocket socket = null;
         long responseTime = -1;
@@ -168,14 +153,12 @@ public class NtpManager
             // InterruptedIOException
 
             // Send NTP request
-            //
             byte[] data = new NtpMessage().toByteArray();
             DatagramPacket outgoing = new DatagramPacket(data, data.length, ipv4Addr, serverPort);
             long sentTime = System.currentTimeMillis();
             socket.send(outgoing);
 
             // Get NTP Response
-            //
             // byte[] buffer = new byte[512];
             DatagramPacket incoming = new DatagramPacket(data, data.length);
             socket.receive(incoming);
@@ -186,7 +169,6 @@ public class NtpManager
             msg = new NtpMessage(incoming.getData());
 
             // Store response time if available
-            //
             Log.i(TAG, "responsetime==" + responseTime + "ms");
         }
         catch (IOException e)
@@ -196,10 +178,17 @@ public class NtpManager
         finally
         {
             if (socket != null)
+            {
                 socket.close();
+            }
         }
 
         return msg;
+    }
+
+    public static int getOffsetOfTimezone()
+    {
+        return TimeZone.getDefault().getRawOffset() / 3600 / 1000;
     }
 
 }
