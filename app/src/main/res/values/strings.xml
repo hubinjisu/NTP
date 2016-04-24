@@ -1,4 +1,43 @@
 <resources>
     <string name="app_name">NTP</string>
     <string name="action_settings">Settings</string>
+
+    <string name="choose_timezone">选择时区</string>
+    <string name="TimeZone_GMT_X_12">(GMT-12:00) 日界线西</string>
+    <string name="TimeZone_GMT_X_11">(GMT-11:00) 中途岛，萨摩亚群岛</string>
+    <string name="TimeZone_GMT_X_10">(GMT-10:00) 夏威夷</string>
+    <string name="TimeZone_GMT_X_9">(GMT-09:00) 阿拉斯加</string>
+    <string name="TimeZone_GMT_X_8">(GMT-08:00) 蒂华纳，下加利福尼亚州，太平洋时间(美国和加拿大)</string>
+    <string name="TimeZone_GMT_X_7">(GMT-07:00) 奇瓦瓦，拉巴斯，马萨特兰(旧)，马扎特兰(新)，山地时间(美国和加拿大)，亚利桑那</string>
+    <string name="TimeZone_GMT_X_6">(GMT-06:00) 瓜达拉哈拉，墨西哥城，蒙特雷，萨斯喀彻温，中部时间(美国和加拿大)，中美洲</string>
+    <string name="TimeZone_GMT_X_5">(GMT-05:00) 波哥大，利马，里奥布朗库，东部时间(美国和加拿大)，印地安那州(东部)</string>
+    <string name="TimeZone_GMT_X_0430">(GMT-04:30) 加拉加斯</string>
+    <string name="TimeZone_GMT_X_0400">(GMT-04:00) 大西洋时间(加拿大)，拉巴斯，马瑙斯，圣地亚哥</string>
+    <string name="TimeZone_GMT_X_0330">(GMT-03:30) 纽芬兰</string>
+    <string name="TimeZone_GMT_X_0300">(GMT-03:00) 巴西利亚，布宜诺斯艾利斯，格陵兰，蒙得维的亚，乔治敦</string>
+    <string name="TimeZone_GMT_X_02">(GMT-02:00) 中大西洋</string>
+    <string name="TimeZone_GMT_X_01">(GMT-01:00) 佛得角群岛，亚速尔群岛</string>
+    <string name="TimeZone_GMT">(GMT) 格林威治标准时间：都柏林，爱丁堡，伦敦，里斯本，卡萨布兰卡，蒙罗维亚，雷克雅未克</string>
+    <string name="TimeZone_GMT_D_01">(GMT+01:00) 阿姆斯特丹，柏林，伯尔尼，罗马，斯德哥尔摩，维也纳，贝尔格莱德，布拉迪斯拉发，布达佩斯，卢布尔雅那，布拉格，布鲁塞尔，哥本哈根，马德里，巴黎，萨拉热窝，斯科普里，华沙，萨格勒布，中非西部</string>
+    <string name="TimeZone_GMT_D_02">(GMT+02:00) 安曼，贝鲁特，哈拉雷，比勒陀利亚，赫尔辛基，基辅，里加，索非亚，塔林，维尔纽斯，开罗，明斯克，温得和克，雅典，布加勒斯特，伊斯坦布尔，耶路撒冷</string>
+    <string name="TimeZone_GMT_D_0300">(GMT+03:00) 巴格达，第比利斯，科威特，利雅得，莫斯科，圣彼得堡，伏尔加格勒，内罗毕</string>
+    <string name="TimeZone_GMT_D_0330">(GMT+03:30) 德黑兰</string>
+    <string name="TimeZone_GMT_D_0400">(GMT+04:00) 阿布扎比，马斯喀特，埃里温，巴库，高加索标准时间，路易港</string>
+    <string name="TimeZone_GMT_D_0430">(GMT+04:30) 喀布尔</string>
+    <string name="TimeZone_GMT_D_0500">(GMT+05:00) 塔什干，叶卡捷琳堡，伊斯兰堡，卡拉奇</string>
+    <string name="TimeZone_GMT_D_0530">(GMT+05:30) 马德拉斯，加尔各答，孟买，新德里，斯里哈亚华登尼普拉</string>
+    <string name="TimeZone_GMT_D_0545">(GMT+05:45) 加德满都</string>
+    <string name="TimeZone_GMT_D_0600">(GMT+06:00) 阿拉木图，新西伯利亚，阿斯塔纳，达卡</string>
+    <string name="TimeZone_GMT_D_0630">(GMT+06:30) 仰光</string>
+    <string name="TimeZone_GMT_D_07">(GMT+07:00) 克拉斯诺亚尔斯克，曼谷，河内，雅加达</string>
+    <string name="TimeZone_GMT_D_08">(GMT+08:00) 北京，重庆，香港特别行政区，乌鲁木齐，吉隆坡，新加坡，珀斯，台北，伊尔库茨克，乌兰巴图</string>
+    <string name="TimeZone_GMT_D_0900">(GMT+09:00) 大坂，札幌，东京，汉城，雅库茨克</string>
+    <string name="TimeZone_GMT_D_0930">(GMT+09:30) 阿德莱德，达尔文</string>
+    <string name="TimeZone_GMT_D_10">(GMT+10:00) 布里斯班，符拉迪沃斯托克，关岛，莫尔兹比港，霍巴特，堪培拉，墨尔本，悉尼</string>
+    <string name="TimeZone_GMT_D_11">(GMT+11:00) 马加丹，所罗门群岛，新喀里多尼亚</string>
+    <string name="TimeZone_GMT_D_12">(GMT+12:00) 奥克兰，惠灵顿，斐济，勘察加半岛，马绍尔群岛</string>
+    <string name="TimeZone_GMT_D_13">(GMT+13:00) 努库阿洛法</string>
+    <string name="ntp_server_address">NTP服务器地址</string>
+    <string name="ntp_server_port">NTP服务器端口</string>
+    <string name="ntp_local_port">NTP本地端口</string>
 </resources>

@@ -29,7 +29,6 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:ems="10"
         android:id="@+id/ntp_server"
         android:layout_alignParentTop="true"
