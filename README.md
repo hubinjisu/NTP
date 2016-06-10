@@ -33,15 +33,21 @@ NTP Server安装包：ntp_server_install_v1.0.0.tgz
 将NTP Server安装包拷贝至硬盘，在root用户的命令行提示符下输入命令如下：
 
 [root@localhost ~]#tar xzf  ntp_server_install_v1.0.0.tgz
+
 [root@localhost ~]#cd ntp_server_install
+
 [root@localhost pxe_install]# ./install
 
 第一行命令是执行安装包的解压操作
+
 第二行命令是进入到安装包的目录
+
 第三行命令是进行安装操作
 
 执行如下命令将系统重新启动，系统重新启动后，则可以提供NTP服务。
+
 [root@localhost ntp_server_install]# reboot
+
 如果需要NTP Server与上一级的NTP Server校时，需要修改/etc/ntp.conf文件，添加一行，如下图所示，编辑完成后，保存退出，重新启动系统。
 
 ![image](https://github.com/hubinjisu/images/blob/master/images/image1.png)
@@ -50,6 +56,7 @@ NTP Server安装包：ntp_server_install_v1.0.0.tgz
 卸载操作
 
 如果不再让设备作为NTP Server，则执行卸载操作即可
+
 [root@localhost ntp_server_install]# ./uninstall
 
 【注意】NTP服务端软件与NTP客户端软件不能安装在同一台服务器上。
@@ -57,23 +64,31 @@ NTP Server安装包：ntp_server_install_v1.0.0.tgz
 3.2	NTP Client配置
 
 定制的NTP Client安装包：ntp_client_install_v1.0.0.tgz
+
 将NTP Client安装包拷贝至硬盘，在root用户的命令行提示符下输入命令如下：
+
 [root@localhost ~]#tar xzf  ntp_client_install_v1.0.0.tgz
+
 [root@localhost ~]#cd ntp_client_install
+
 [root@localhost ntp_client_install]# ./install
 
 安装完毕后，需要使用setntp命令进行定时校时的配置
+
 [root@localhost ~]#setntp 192.168.1.7
+
 注意192.168.1.7是NTP Server的IP地址，设置成功后，则如下图所示。
 
 ![image](https://github.com/hubinjisu/images/blob/master/images/image2.png)
 
 [root@localhost ~]#setntp 
+
 注意：setntp命令后面没有参数时，则会输出已设置的NTP Server的IP地址，如下图所示
 
 ![image](https://github.com/hubinjisu/images/blob/master/images/image3.png)
 
 [root@localhost ~]#setntp 0.0.0.0
+
 注意：setntp 0.0.0.0 表示删除已有的NTP Server的IP地址。这样配置以后，该设备不再进行校时。如下图所示。
 
 ![image](https://github.com/hubinjisu/images/blob/master/images/image4.png)
