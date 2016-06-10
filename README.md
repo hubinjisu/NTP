@@ -30,6 +30,10 @@ NTP是一个跨越广域网或局域网的复杂的同步时间协议，它通�
 
 为了简便使用，特定制了NTP Server和NTP Client的安装包。
 
+[ntp_client_install_v1.0.0](https://github.com/hubinjisu/images/blob/master/materials/ntp_client_install_v1.0.0.tgz)
+
+[ntp_server_install_v1.0.0](https://github.com/hubinjisu/images/blob/master/materials/ntp_server_install_v1.0.0.tgz)
+
 3.1	NTP Server的配置
 
 NTP Server安装包：ntp_server_install_v1.0.0.tgz
